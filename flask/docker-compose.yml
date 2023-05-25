@@ -1,0 +1,20 @@
+version: "3.7"
+
+services:
+  mongodb:
+    image: mongo:5.0.8-focal
+    environment:
+    - MONGO_INITDB_ROOT_USERNAME=mongoadmin
+    - MONGO_INITDB_ROOT_PASSWORD=${MONGO_PASSWORD:-admin}
+    ports:
+    - 27017:27017
+
+  app:
+    build: ./
+    environment:
+    - MONGO_INITDB_ROOT_USERNAME=mongoadmin
+    - MONGO_INITDB_ROOT_PASSWORD=${MONGO_PASSWORD:-admin}
+    volumes:
+    - ./:/app
+    ports:
+    - 5000:5000
